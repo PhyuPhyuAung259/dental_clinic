@@ -6,15 +6,14 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
  
 <?php
-ini_set("display_errors","1");
-error_reporting(E_ALL);
-    /*session_start();
+ 
+    session_start();
     if(isset($_SESSION['user'])){
         echo $_SESSION['user']['username'];
     }
     else{
         header('Location: user/login.php');
-    }*/
+    }
     $username="";
     $treatment="";
     $appointment_date="";
