@@ -79,8 +79,7 @@
     <div class="my-3 row justify-content-center ms-2">
         <label for="name" class="col-sm-2 col-lg-1 col-md-2 col-form-label">Name</label>
         <div class="col-sm-8 col-lg-3 col-md-4">
-            <input type="text" class="form-control" id="username" name="username" value="<?php //echo $_SESSION['user']['username']; 
-            echo "Phyu";?>" readonly>
+            <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['user']['username'];?>" readonly>
         </div>
     </div>
     <div class="my-3 row justify-content-center ms-2">
