@@ -6,10 +6,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
  
 <?php
- 
+    $name="";
     session_start();
     if(isset($_SESSION['user'])){
-        echo $_SESSION['user']['username'];
+        $name=$_SESSION['user'][0]['username'];
     }
     else{
         header('Location: user/login.php');
@@ -79,7 +79,7 @@
     <div class="my-3 row justify-content-center ms-2">
         <label for="name" class="col-sm-2 col-lg-1 col-md-2 col-form-label">Name</label>
         <div class="col-sm-8 col-lg-3 col-md-4">
-            <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['user']['username'];?>" readonly>
+            <input type="text" class="form-control" id="username" name="username" value="<?php $name; ?>" placeholder="<?php echo $name;?>" readonly>
         </div>
     </div>
     <div class="my-3 row justify-content-center ms-2">
