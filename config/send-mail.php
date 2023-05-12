@@ -1,41 +1,28 @@
-<?php
-ini_set( 'display_errors', 1 );
-error_reporting( E_ALL );
-
- 
+<?php 
+ ini_set("display_errors","1");
+ error_reporting(E_ALL);
+require "../vendor/autoload.php"; //PHPMailer Object
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require '../path/to/PHPMailer/src/Exception.php';
+require '../path/to/PHPMailer/src/PHPMailer.php';
+require '../path/to/PHPMailer/src/SMTP.php';
+$mail = new PHPMailer(true); 
+$mail = new PHPMailer; //From email address and name 
+$mail->From = "from@yourdomain.com"; 
+$mail->FromName = "Full Name"; //To address and name 
+$mail->addAddress("phyuphyuaung.dev@gmail.com", "Phyu Phyu Aung");//Recipient name is optional
+$mail->addAddress("phyuphyuaung.dev@gmail.com"); //Address to which recipient will reply 
+
+$mail->isHTML(true); 
+$mail->Subject = "User contact from Dental_clinic"; 
+$mail->Body = $_REQUEST['message'];
  
-
-//Load Composer's autoloader
-require '../vendor/autoload.php';
-
-$username=$_REQUEST['username'];
-$email=$_REQUEST['email'];
-$message=$_REQUEST['message'];
+if(!$mail->send()) 
+{
+echo "Mailer Error: " . $mail->ErrorInfo; 
+} 
+else { echo "Message has been sent successfully"; 
+}
  
-$mail = new PHPMailer(true);
-
- 
-
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-$mail->isSMTP();
-$mail->SMTPAuth = true;
-
-$mail->Host = "smtp.gmail.com";
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-
-$mail->Username = "phyuphyuaung.dev@gmail.com";
-$mail->Password = "phyupphyuaungdev@25";
-
-$mail->setFrom($email, $username);
-$mail->addAddress("phyuphyuaung.dev@gmail.com");
-
-$mail->Subject = 'Contact From' . $username;
-$mail->Body = $message;
-
-$mail->send();
-
-header("Location: index.php");
+?>

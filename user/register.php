@@ -20,7 +20,7 @@
       $username=$_REQUEST['username']; //adding form data to variable
       $phone=$_REQUEST['phone'];
       $address=$_REQUEST['address'];
-      $image=fopen($_FILES['files'], 'rb');
+      
       $email=$_REQUEST['email'];
       $password=$_REQUEST['password'];
       //condition for form data
@@ -41,6 +41,10 @@
       }
       else{
         //inserting form data to db
+        $image = $_FILES['image']['name'];
+        $temp = $_FILES['image']['tmp_name'];  
+        $upload_dir = "../uploads/";
+        move_uploaded_file($temp, $upload_dir.$image);      
         $sql="INSERT INTO user (username,phone,address,image,email,password) 
               VALUES (:username, :phone, :address,:image, :email, :password)";
         $stmt=$pdo->prepare($sql);
@@ -53,38 +57,7 @@
             ':password'=>$password
         ]);
       }
-      /*
-        // File name
-        $filename = $_FILES['files']['name'];
-      
-        // Location
-        $target_file = '../uploads/'.$filename;
-      
-        // file extension
-        $file_extension = pathinfo(
-            $target_file, PATHINFO_EXTENSION);
-             
-        $file_extension = strtolower($file_extension);
-      
-        // Valid image extension
-        $valid_extension = array("png","jpeg","jpg");
-      
-        if(in_array($file_extension, $valid_extension)) {
-  
-            // Upload file
-            if(move_uploaded_file(
-                $_FILES['files']['tmp_name'],
-                $target_file)
-            ) {
-                // Prepared statement
-            $query = "INSERT INTO user_image (name,image,username) VALUES(?,?,?)";
-            $statement = $conn->prepare($query);
-                // Execute query
-                $statement->execute(
-                    array($filename,$target_file,$username));
-           }
-        }
-    */
+   
      
      
     }
@@ -144,7 +117,7 @@
         <div class="mb-3 row justify-content-center">
             <label for="image" class="col-sm-2 col-lg-1 col-md-2  col-form-label">Image</label>
             <div class="col-sm-10 col-lg-4 col-md-4">
-            <input type="file" class="form-control" id="image" name="files[]" value="<?php echo $image; ?>">
+            <input type="file" class="form-control" id="image" name="image" value="<?php echo $image; ?>">
             </div>
         </div>
         <div class="mb-3 row justify-content-center">
