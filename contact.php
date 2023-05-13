@@ -43,10 +43,10 @@
             <p class="text-muted">Have a question? Just send our admin team a message and we'll get back to you as quickly as possible.</p>
         </div>
     </div>
-    <form action="config/send-mail.php" method="post"> 
+    <form id='myForm'> 
     <div class="mb-3 row justify-content-center">
         <div class="col-sm-10 col-lg-3 col-md-4 mb-2">
-            <input type="text" class="form-control p-2" id="username" name="username" placeholder="Your Name">
+            <input type="text" class="form-control p-2" id="username" name="from_name" placeholder="Your Name">
         </div>
         <div class="col-sm-10 col-lg-3 col-md-4 mb-2">
             <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
@@ -64,6 +64,29 @@
     </div>
     </form>
 </div>
+
+<script>
+    $('#myForm').on('submit', function(event) {
+    event.preventDefault(); // prevent reload
+    
+    var formData = new FormData(this);
+    formData.append('service_id', 'service_rbwh8rh');
+    formData.append('template_id', 'template_qmal2bx');
+    formData.append('user_id', 'JBS4NQzdIJ0E3PGC1');
+ 
+    $.ajax('https://api.emailjs.com/api/v1.0/email/send-form', {
+        type: 'POST',
+        data: formData,
+        contentType: false, // auto-detection
+        processData: false // no need to parse formData to string
+    }).done(function() {
+        alert('Your mail is sent!');
+    }).fail(function(error) {
+        alert('Oops... ' + JSON.stringify(error));
+    });
+});
+// code fragment
+</script>
 
  
 <?php include 'inc/footer.php';?>
